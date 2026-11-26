@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    color: white;
+    background: linear-gradient(180deg, #080d27, #17264c, #10152f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cielo {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.estrella {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px white;
+    animation: brillar 2s infinite alternate;
+}
+
+@keyframes brillar {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}
+
+/* LUNA DE CORAZÓN AZUL */
+
+.luna {
+    position: absolute;
+    top: 35px;
+    right: 12%;
+    color: #a9ddff;
+    font-size: 85px;
+    line-height: 1;
+    text-shadow:
+        0 0 8px #b9e5ff,
+        0 0 20px #78caff,
+        0 0 40px #55baff;
+    animation: flotar 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px #78caff);
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* PRESENTACIÓN */
+
+.contenedor {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 20px;
+}
+
+h1 {
+    color: #ffc5e0;
+    margin-bottom: 15px;
+    text-shadow: 0 0 12px #ff8fc5;
+}
+
+#mensaje {
+    font-size: 24px;
+    margin: 20px;
+    color: #fff0f8;
+}
+
+/* MARGARITA MÁS PEQUEÑA */
+
+.flor {
+    position: relative;
+    width: 220px;
+    height: 300px;
+    margin: auto;
+    cursor: pointer;
+    transform: scale(0.88);
+    transform-origin: center center;
+}
+
+.petalo {
+    position: absolute;
+    width: 38px;
+    height: 90px;
+    left: 91px;
+    top: 35px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #e9e9e9, #ffffff, #e4e4e4);
+    transform-origin: 50% 100%;
+    transition: transform 1.2s ease, opacity 1.2s ease;
+    box-shadow: 0 0 9px rgba(255,255,255,0.65);
+}
+
+.petalo:nth-child(1) { transform: rotate(0deg); }
+.petalo:nth-child(2) { transform: rotate(30deg); }
+.petalo:nth-child(3) { transform: rotate(60deg); }
+.petalo:nth-child(4) { transform: rotate(90deg); }
+.petalo:nth-child(5) { transform: rotate(120deg); }
+.petalo:nth-child(6) { transform: rotate(150deg); }
+.petalo:nth-child(7) { transform: rotate(180deg); }
+.petalo:nth-child(8) { transform: rotate(210deg); }
+.petalo:nth-child(9) { transform: rotate(240deg); }
+.petalo:nth-child(10) { transform: rotate(270deg); }
+.petalo:nth-child(11) { transform: rotate(300deg); }
+.petalo:nth-child(12) { transform: rotate(330deg); }
+
+.petalo.caer {
+    opacity: 0;
+    transform: translateY(330px) rotate(500deg);
+}
+
+.centro {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    top: 105px;
+    left: 81px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff17c, #f5bd32, #d99518);
+    z-index: 3;
+    box-shadow: 0 0 18px #ffe477;
+}
+
+/* TALLO MÁS LARGO */
+
+.tallo {
+    position: absolute;
+    width: 10px;
+    height: 165px;
+    background: linear-gradient(90deg, #347d43, #65c879);
+    top: 155px;
+    left: 105px;
+    border-radius: 10px;
+}
+
+.hoja {
+    position: absolute;
+    width: 55px;
+    height: 27px;
+    background: #58b76b;
+    border-radius: 100% 0 100% 0;
+    top: 220px;
+    left: 110px;
+    transform: rotate(-20deg);
+}
+
+/* BOTÓN */
+
+button {
+    background: #e982b5;
+    color: white;
+    border: 1px solid #ffc1df;
+    padding: 13px 28px;
+    border-radius: 25px;
+    font-size: 17px;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 0 15px #e982b5;
+}
+
+button:hover {
+    background: #ff9acb;
+}
+
+#instruccion {
+    color: #f9ddec;
+    margin-top: 10px;
+}
+
+/* CARTA FINAL */
+
+#cartaFondo {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #080d27, #17264c, #10152f);
+}
+
+.carta {
+    position: relative;
+    z-index: 2;
+    max-width: 440px;
+    width: 100%;
+    padding: 30px 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 30px rgba(255,150,210,0.25);
+    animation: aparecer 1.5s ease;
+}
+
+.carta h1 {
+    font-size: 27px;
+    color: #ffb8d9;
+}
+
+.carta p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #fff0f7;
+}
+
+.carta h2 {
+    color: #ff9bc9;
+    font-size: 35px;
+    margin: 22px 0;
+    text-shadow: 0 0 15px #ff70b5;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.oculto {
+    display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="cielo" id="cielo">
+    <div class="luna">♥</div>
+</div>
+
+<div class="contenedor" id="inicio">
+
+    <h1>Una margarita para ti 🌼</h1>
+
+    <p id="mensaje">¿Me ama o no me ama? ❤️</p>
+
+    <div class="flor" id="flor">
+
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+
+        <div class="centro"></div>
+        <div class="tallo"></div>
+        <div class="hoja"></div>
+
+    </div>
+
+    <p id="instruccion">
+        Haz clic en la margarita o en el botón 🌼
+    </p>
+
+    <button id="boton">Quitar un pétalo ❤️</button>
+
+</div>
+
+<div id="cartaFondo">
+
+    <div class="carta">
+
+        <h1>Para ti, mi niña hermosa ❤️</h1>
+
+        <p>
+            Quiero que sepas lo importante que eres para mí.
+            Desde que llegaste a mi vida, has hecho que muchos
+            momentos sean más bonitos.
+            <br><br>
+
+            Me encanta tu sonrisa, tu forma de ser y cada pequeño
+            detalle que te hace tan especial.
+            <br><br>
+
+            No sé qué nos tenga preparado el futuro, pero sí sé
+            que quiero seguir compartiendo momentos contigo,
+            cuidarte, apoyarte y hacerte feliz.
+            <br><br>
+
+            Eres una persona que quiero muchísimo y espero
+            poder demostrarte cada día lo especial que eres
+            para mí.
+        </p>
+
+        <h2>TE AMO ❤️</h2>
+
+        <p>Con todo mi corazón. 💗</p>
+
+    </div>
+
+</div>
+
+<script>
+
+const cielo = document.getElementById("cielo");
+
+for (let i = 0; i < 90; i++) {
+    const estrella = document.createElement("div");
+    estrella.className = "estrella";
+    estrella.style.left = Math.random() * 100 + "%";
+    estrella.style.top = Math.random() * 100 + "%";
+    estrella.style.animationDelay = Math.random() * 3 + "s";
+    cielo.appendChild(estrella);
+}
+
+const petalos = document.querySelectorAll(".petalo");
+const mensaje = document.getElementById("mensaje");
+const boton = document.getElementById("boton");
+const inicio = document.getElementById("inicio");
+const cartaFondo = document.getElementById("cartaFondo");
+const instruccion = document.getElementById("instruccion");
+
+let contador = 0;
+let ocupado = false;
+
+function desprenderPetalo() {
+
+    if (ocupado || contador >= petalos.length) return;
+
+    ocupado = true;
+
+    petalos[contador].classList.add("caer");
+
+    contador++;
+
+    if (contador % 2 === 0) {
+        mensaje.textContent = "No me ama 💔";
+    } else {
+        mensaje.textContent = "Me ama ❤️";
+    }
+
+    setTimeout(() => {
+        ocupado = false;
+
+        if (contador === petalos.length) {
+            finalizar();
+        }
+
+    }, 1200);
+}
+
+function finalizar() {
+
+    mensaje.textContent = "¡La respuesta está en mi corazón! ❤️";
+    instruccion.textContent = "Tengo algo especial para ti...";
+
+    setTimeout(() => {
+        inicio.classList.add("oculto");
+        cartaFondo.style.display = "flex";
+    }, 1800);
+}
+
+boton.addEventListener("click", desprenderPetalo);
+document.getElementById("flor").addEventListener("click", desprenderPetalo);
+
+</script>
+
+</body>
+</html>
